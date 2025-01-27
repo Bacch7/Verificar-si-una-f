@@ -1,0 +1,29 @@
+using System;
+
+class Program
+{
+    static void TorresDeHanoi(int n, char origen, char auxiliar, char destino)
+    {
+        if (n == 1)
+        {
+            Console.WriteLine($"Mover disco 1 de {origen} a {destino}");
+            return;
+        }
+
+        // Mover n-1 discos de la torre origen a la torre auxiliar
+        TorresDeHanoi(n - 1, origen, destino, auxiliar);
+
+        // Mover el disco restante de la torre origen a la torre destino
+        Console.WriteLine($"Mover disco {n} de {origen} a {destino}");
+
+        // Mover los n-1 discos de la torre auxiliar a la torre destino
+        TorresDeHanoi(n - 1, auxiliar, origen, destino);
+    }
+
+    static void Main(string[] args)
+    {
+        int numDiscos = 3; // Puedes cambiar el número de discos
+        Console.WriteLine($"Resolviendo Torres de Hanoi para {numDiscos} discos:");
+        TorresDeHanoi(numDiscos, 'A', 'B', 'C');
+    }
+}
