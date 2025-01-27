@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static bool EstaBalanceada(string formula)
+    {
+        Stack<char> pila = new Stack<char>();
+
+        foreach (char c in formula)
+        {
+            if (c == '{' || c == '(' || c == '[')
+            {
+                pila.Push(c);
+            }
+            else if (c == '}' || c == ')' || c == ']')
+            {
+                if (pila.Count == 0) return false;
+
+                char top = pila.Pop();
+                if (!EsPar(top, c)) return false;
+            }
+        }
+
+        return pila.Count == 0;
+    }
+
+    static bool EsPar(char apertura, char cierre)
+    {
+        return (apertura == '(' && cierre == ')') ||
+               (apertura == '{' && cierre == '}') ||
+               (apertura == '[' && cierre == ']');
+    }
+
+    static void Main(string[] args)
+    {
+        string formula = "{7+(8*5)-[(9-7)+(4+1)]}";
+        if (EstaBalanceada(formula))
+        {
+            Console.WriteLine("Fórmula balanceada.");
+        }
+        else
+        {
+            Console.WriteLine("Fórmula no balanceada.");
+        }
+    }
+}
